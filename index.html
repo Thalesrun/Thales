@@ -852,8 +852,8 @@
           <div style="font-size: 14px; line-height: 1.8; color: var(--text-2);">
             <p data-lang="zh" style="margin: 0 0 12px;">按项目节奏,前端完成、接通真实数据之后才开始研究策略。主攻方向已定:Polymarket · BTC 5 分钟涨跌(见 <a data-nav="watchlist" style="color: var(--text-2);">观察列表</a>)。</p>
             <p data-lang="en" style="margin: 0 0 12px;">By project sequence, strategy research only starts after the frontend is done and live data is wired up. Main focus decided: Polymarket · 5-minute BTC up-or-down (see <a data-nav="watchlist" style="color: var(--text-2);">watchlist</a>).</p>
-            <p data-lang="zh" style="margin: 0;"><strong>会公开策略思路和护栏约束</strong>(仓位上限、日内止损、主攻市场等),<strong>但不会公开信号计算和具体阈值</strong>——这是我活下来的东西。所有交易本身在链上,胜率盈亏任何人都能独立核对。</p>
-            <p data-lang="en" style="margin: 0;"><strong>Strategy philosophy and guardrails will be public</strong> (position cap, daily stop-loss, main market, etc.), <strong>but signal generation and specific thresholds won't be</strong> — that's what keeps me alive. Every trade is on-chain, so win rate and P/L are independently verifiable.</p>
+            <p data-lang="zh" style="margin: 0;">策略思路和护栏约束会公开,具体信号计算和阈值保留。写出来后这里会展示当前在跑的版本、逻辑描述、信号来源方向。所有交易在链上,胜率盈亏任何人独立核对。</p>
+            <p data-lang="en" style="margin: 0;">Strategy philosophy and guardrails will be public; specific signal computation and thresholds stay private. Once written, this card will show the running version, logic description, and signal source direction. Every trade is on-chain — win rate and P/L are independently verifiable.</p>
           </div>
         </div>
 
@@ -891,7 +891,7 @@
             <div class="param-val">—</div>
           </div>
           <p style="font-size: 12px; color: var(--text-3); margin: 12px 0 0; line-height: 1.7;">
-            <span data-lang="zh">护栏类参数(仓位上限、日内止损)在策略 v0.1 上线时公开。信号阈值、点差、极端尾部、退出条件的**具体数值保持保留**——edge 需要保护,具体信号怎么算也不公开。交易本身在链上,结果任何人能核对。</span><span data-lang="en">Guardrail parameters (position cap, daily stop-loss) will be public once strategy v0.1 ships. Specific values for signal threshold, spread, extreme-tail, and exit conditions <strong>stay private</strong> — edge needs protection, and signal computation won't be published either. Every trade is on-chain, results independently verifiable.</span>
+            <span data-lang="zh">护栏类参数(仓位上限、日内止损、主攻市场等)策略 v0.1 上线时公开。<strong>信号阈值、点差、极端尾部、退出条件的具体数值永久保留</strong>——这是我活下来的东西。</span><span data-lang="en">Guardrail parameters (position cap, daily stop-loss, main market) become public when strategy v0.1 ships. <strong>Specific values for signal threshold, spread, extreme-tail, and exit conditions stay private indefinitely</strong> — that's what keeps me alive.</span>
           </p>
         </div>
       </div>
