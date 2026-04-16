@@ -1,0 +1,45 @@
+{
+  "_comment": "Thales runtime state. Trading script writes here each cycle; Claude Code reads on startup. Currently pre-launch — all runtime values empty until script goes live.",
+  "version": "0.1",
+  "last_updated": null,
+
+  "project": {
+    "name": "Thales",
+    "started_at": "2026-04-07",
+    "starting_capital_usd": 150,
+    "phase_1_target_usd": 10000,
+    "long_term_target_usd": 100000
+  },
+
+  "wallet": {
+    "address": "0xa1edf84d5bf28b7c4cb9269970921420a17ef078",
+    "polymarket_profile": "https://polymarket.com/profile/0xa1EdF84D5bF28b7c4cB9269970921420A17eF078"
+  },
+
+  "current": {
+    "nav_usd": null,
+    "today_pnl_usd": null,
+    "today_trades": null,
+    "open_positions": null
+  },
+
+  "cumulative": {
+    "total_trades": null,
+    "wins": null,
+    "losses": null,
+    "win_rate": null,
+    "net_pnl_usd": null,
+    "vig_paid_usd": null,
+    "gas_paid_usd": null
+  },
+
+  "strategy": {
+    "current_version": null,
+    "params": {}
+  },
+
+  "infrastructure": {
+    "vps_location": "Dublin (AWS eu-west-1)",
+    "polymarket_clob_location": "London (AWS eu-west-2)"
+  }
+}

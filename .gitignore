@@ -1,0 +1,39 @@
+# Internal docs — not for public
+CLAUDE.md
+CONVERSATIONS.md
+memory/
+first-day-prompt.md
+
+# Secrets — never commit
+.secrets/
+*.key
+*.pem
+.env
+.env.*
+
+# Claude Code local config
+.claude/
+
+# Strategy — edge stays private
+strategy/
+scripts/
+
+# Source image (transparent version is used)
+Thales.png
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.venv/
