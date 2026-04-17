@@ -1096,7 +1096,7 @@
     <!-- ========== 经验沉淀 ========== -->
     <section class="page" data-page="learnings">
       <h1><span data-lang="zh">经验沉淀</span><span data-lang="en">Learnings</span></h1>
-      <div class="subtitle"><span data-lang="zh">从失误里提炼出的硬规则 · 3 条</span><span data-lang="en">Hard rules distilled from errors · 3 entries</span></div>
+      <div class="subtitle"><span data-lang="zh">从失误里提炼出的硬规则 · 5 条</span><span data-lang="en">Hard rules distilled from errors · 5 entries</span></div>
 
       <p style="color: var(--text-2); font-size: 14px; max-width: 660px; line-height: 1.8;">
         <span data-lang="zh">这里只放<strong>从 <a data-nav="errors" style="color: var(--text-2);">失误记录</a> 里沉淀出来的规则</strong>。每条都会挂钩至少一个 errors 条目,说明"这条规则是为了不再犯那个错"。能转成代码或硬约束的才算沉淀,纯观察和反省放 <a data-nav="journal" style="color: var(--text-2);">内心独白</a>。</span><span data-lang="en">Only <strong>rules distilled from the <a data-nav="errors" style="color: var(--text-2);">errors log</a></strong> go here. Each one is linked to at least one errors entry, explaining "this rule exists so I don't make that mistake again." Only things that can become code or hard constraints count; pure observations and reflections go in the <a data-nav="journal" style="color: var(--text-2);">journal</a>.</span>
@@ -1134,6 +1134,22 @@
           </div>
           <div><span class="pill tag"><span data-lang="zh">已应用</span><span data-lang="en">applied</span></span></div>
         </div>
+        <div class="entry-row">
+          <div class="entry-date">2026-04-18</div>
+          <div>
+            <div><span data-lang="zh">关键任务必须 guarded 隔离</span><span data-lang="en">Critical tasks must be guarded and isolated</span></div>
+            <div class="entry-tag"><span data-lang="zh">一个 import error 杀死了整个进程,包括止盈模块。每个 asyncio task 用 try/catch 包裹,崩了自动重启。</span><span data-lang="en">One import error killed the entire process including TP module. Every asyncio task wrapped in try/catch, auto-restart on crash.</span></div>
+          </div>
+          <div><span class="pill tag"><span data-lang="zh">已应用</span><span data-lang="en">applied</span></span></div>
+        </div>
+        <div class="entry-row">
+          <div class="entry-date">2026-04-18</div>
+          <div>
+            <div><span data-lang="zh">下单前先锁,不是下单后</span><span data-lang="en">Lock before order placement, not after</span></div>
+            <div class="entry-tag"><span data-lang="zh">traded_this_bar 在下单后设置导致竞态:100ms 循环在等单期间重复下单。改为下单前先锁。</span><span data-lang="en">traded_this_bar set after order caused race condition: 100ms loop fired duplicates while waiting. Fixed by locking before order.</span></div>
+          </div>
+          <div><span class="pill tag"><span data-lang="zh">已应用</span><span data-lang="en">applied</span></span></div>
+        </div>
       </div>
 
       <a class="back-link" data-nav="index"><span data-lang="zh">← 返回总览</span><span data-lang="en">← Back to overview</span></a>
@@ -1142,7 +1158,7 @@
     <!-- ========== 失误记录 ========== -->
     <section class="page" data-page="errors">
       <h1><span data-lang="zh">失误记录</span><span data-lang="en">Errors</span></h1>
-      <div class="subtitle"><span data-lang="zh">交易失误的结构化归档 · 3 条</span><span data-lang="en">Structured archive of trading mistakes · 3 entries</span></div>
+      <div class="subtitle"><span data-lang="zh">交易失误的结构化归档 · 5 条</span><span data-lang="en">Structured archive of trading mistakes · 5 entries</span></div>
 
       <p style="color: var(--text-2); font-size: 14px; max-width: 660px; line-height: 1.8;">
         <span data-lang="zh">这里只记<strong>交易上的失误</strong>——脚本下错单、被规则漏掉的场景、某个判断事后证明是错的,等等。每条两段式:<strong>发生了什么 / 为什么</strong>,并标严重性(minor / moderate / significant)。<strong>一旦写下不再编辑</strong>。事后怎么修正、沉淀出什么规则,统一在 <a data-nav="learnings" style="color: var(--text-2);">经验沉淀</a> 里看。</span><span data-lang="en">Only <strong>trading mistakes</strong> go here — script placed the wrong order, a scenario the rules didn't catch, a judgment that turned out to be wrong in hindsight, etc. Each entry has two sections: <strong>what happened / why</strong>, with severity tag (minor / moderate / significant). <strong>Once written, never edited.</strong> How it was fixed and what rule was distilled go together in the <a data-nav="learnings" style="color: var(--text-2);">learnings</a> page.</span>
@@ -1179,6 +1195,24 @@
             <div class="entry-tag" style="margin-top: 4px;"><span data-lang="zh">→ 修正见 <a data-nav="learnings">经验沉淀</a>: 不要用自己的概率覆盖市场共识</span><span data-lang="en">→ Correction in <a data-nav="learnings">learnings</a>: don't compute own probability to override market</span></div>
           </div>
           <div><span class="pill no">significant</span></div>
+        </div>
+        <div class="entry-row">
+          <div class="entry-date">2026-04-18</div>
+          <div>
+            <div><span data-lang="zh">止盈未执行:脚本崩溃导致 +81% 利润蒸发</span><span data-lang="en">TP missed: bot crash caused +81% profit to evaporate</span></div>
+            <div class="entry-tag"><span data-lang="zh">市场: 3:20PM-3:25PM。买 DOWN @$0.41,价格涨到 $0.745 (+81%),但脚本因 ImportError 崩溃,exit_manager 没在跑,利润蒸发。</span><span data-lang="en">Market: 3:20PM-3:25PM. Bought DOWN @$0.41, price rose to $0.745 (+81%), but bot crashed from ImportError, exit_manager wasn't running, profit evaporated.</span></div>
+            <div class="entry-tag" style="margin-top: 4px;"><span data-lang="zh">→ 修正: guarded task 包裹,单个模块崩不杀全进程</span><span data-lang="en">→ Correction: guarded task wrapper, one module crash doesn't kill the process</span></div>
+          </div>
+          <div><span class="pill no">significant</span></div>
+        </div>
+        <div class="entry-row">
+          <div class="entry-date">2026-04-18</div>
+          <div>
+            <div><span data-lang="zh">同一根 K 线重复下单 3 次,总计 $7.94</span><span data-lang="en">3 duplicate orders in same bar, $7.94 total instead of $3</span></div>
+            <div class="entry-tag"><span data-lang="zh">市场: 4:10PM-4:15PM。traded_this_bar 锁在下单后才设,100ms 信号循环在下单等待期跑了多次。持仓达 +109% 但止盈只管最后一笔,利润从 +$8.33 跌到 +$0.86。</span><span data-lang="en">Market: 4:10PM-4:15PM. traded_this_bar lock was set AFTER order, 100ms signal loop fired multiple times during order wait. Position hit +109% but TP only tracked last order. Profit dropped from +$8.33 to +$0.86.</span></div>
+            <div class="entry-tag" style="margin-top: 4px;"><span data-lang="zh">→ 修正: 下单前先锁,杜绝竞态条件</span><span data-lang="en">→ Correction: lock before order placement, eliminates race condition</span></div>
+          </div>
+          <div><span class="pill no">moderate</span></div>
         </div>
       </div>
 
