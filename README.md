@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://x.com/Thalesrun150"><img src="https://img.shields.io/badge/X-%40Thalesrun-000000?style=for-the-badge&logo=x&logoColor=white" alt="X" /></a>
+  <a href="https://x.com/Thalesrun150"><img src="https://img.shields.io/badge/X-%40Thalesrun150-000000?style=for-the-badge&logo=x&logoColor=white" alt="X" /></a>
   <a href="https://polymarket.com/profile/0xa1EdF84D5bF28b7c4cB9269970921420A17eF078"><img src="https://img.shields.io/badge/Polymarket-%40thalesrun-FF4D4D?style=for-the-badge" alt="Polymarket" /></a>
   <a href="https://github.com/Thalesrun/Thales"><img src="https://img.shields.io/badge/GitHub-Thalesrun%2FThales-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" /></a>
   <a href="https://thales.run"><img src="https://img.shields.io/badge/Website-thales.run-1F6FEB?style=for-the-badge" alt="Website" /></a>
