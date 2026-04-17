@@ -904,7 +904,7 @@
           <div class="card-title"><span data-lang="zh">终端 · 策略扫描</span><span data-lang="en">Terminal · strategy scan</span></div>
           <div class="card-meta"><span data-lang="zh">运行中 · Dublin VPS</span><span data-lang="en">running · Dublin VPS</span></div>
         </div>
-        <div class="term-log">
+        <div class="term-log" id="live-terminal">
           <div class="term-line"><span class="ts">[--:--:--]</span> <span class="tag-ok">STATUS</span> <span data-lang="zh">策略 v0.1 已部署,每轮扫描流程如下:</span><span data-lang="en">Strategy v0.1 deployed, scan cycle flow:</span></div>
           <div class="term-line muted"><span class="ts">[--:--:--]</span> <span class="tag-info">STATUS</span> <span data-lang="zh">以下为扫描模板,实时日志将在 Supabase 接入后同步:</span><span data-lang="en">Template below; live logs will sync after Supabase integration:</span></div>
           <div class="term-line muted"><span class="ts">[--:--:--]</span> <span class="tag-info">CYCLE</span> <span data-lang="zh">新合约 BTC · 开始扫描</span><span data-lang="en">new BTC contract · scanning</span></div>
@@ -1899,6 +1899,96 @@
   }
   refreshAll();
   setInterval(refreshAll, 10000);
+
+  // --- Supabase real-time terminal ---
+  (function initTerminal() {
+    const SB_URL = 'https://vlkdpjhqbwgkhpqcipwl.supabase.co';
+    const SB_KEY = 'sb_publishable_vIAIsc_ZuVkBiffWC5V-dQ_6jQyhvhF';
+    const terminal = document.getElementById('live-terminal');
+    if (!terminal) return;
+
+    const MAX_LINES = 50;
+    const tagClass = {
+      'STATUS': 'tag-info', 'CYCLE': 'tag-info', 'FETCH': 'tag-info',
+      'SIGNAL': 'tag-info', 'CHECK': 'tag-info', 'IDLE': 'tag-info',
+      'ORDER': 'tag-ok', 'DECISION': 'tag-ok', 'FILL': 'tag-ok',
+      'SETTLE': 'tag-ok', 'PRICING': 'tag-info', 'READY': 'tag-ok',
+      'EXIT': 'tag-warn', 'WARN': 'tag-warn', 'ERROR': 'tag-warn',
+    };
+
+    function addLine(tag, msg, ts) {
+      const timeStr = ts ? new Date(ts).toLocaleTimeString('en-US', {timeZone:'America/New_York', hour12:false}) : '--:--:--';
+      const cls = tagClass[tag] || 'tag-info';
+      const div = document.createElement('div');
+      div.className = 'term-line';
+      div.innerHTML = `<span class="ts">[${timeStr}]</span> <span class="${cls}">${tag}</span> ${msg.replace(/</g,'&lt;')}`;
+      terminal.appendChild(div);
+      while (terminal.children.length > MAX_LINES) terminal.removeChild(terminal.firstChild);
+      terminal.scrollTop = terminal.scrollHeight;
+    }
+
+    // Load recent logs
+    fetch(`${SB_URL}/rest/v1/terminal_logs?select=*&order=id.desc&limit=30`, {
+      headers: { 'apikey': SB_KEY }
+    })
+    .then(r => r.json())
+    .then(rows => {
+      if (!rows || !rows.length) return;
+      const existing = terminal.querySelectorAll('.term-line');
+      // Keep template lines if no live data yet, otherwise clear
+      if (rows.length > 1) {
+        terminal.innerHTML = '';
+      }
+      rows.reverse().forEach(r => addLine(r.tag, r.msg, r.ts));
+    })
+    .catch(() => {});
+
+    // Subscribe to realtime inserts
+    const wsUrl = SB_URL.replace('https://', 'wss://') + '/realtime/v1/websocket?apikey=' + SB_KEY + '&vsn=1.0.0';
+    let ws;
+    function connectWs() {
+      ws = new WebSocket(wsUrl);
+      ws.onopen = () => {
+        ws.send(JSON.stringify({
+          topic: 'realtime:public:terminal_logs',
+          event: 'phx_join',
+          payload: { config: { broadcast: { self: true }, postgres_changes: [{ event: 'INSERT', schema: 'public', table: 'terminal_logs' }] } },
+          ref: '1'
+        }));
+        setInterval(() => { try { ws.send(JSON.stringify({topic:'phoenix',event:'heartbeat',payload:{},ref:'hb'})); } catch(e){} }, 30000);
+      };
+      ws.onmessage = (e) => {
+        try {
+          const data = JSON.parse(e.data);
+          if (data.event === 'postgres_changes') {
+            const payload = data.payload;
+            if (payload && payload.data && payload.data.record) {
+              const r = payload.data.record;
+              addLine(r.tag, r.msg, r.ts);
+            }
+          }
+        } catch(err) {}
+      };
+      ws.onclose = () => { setTimeout(connectWs, 3000); };
+      ws.onerror = () => { ws.close(); };
+    }
+
+    // Fallback: poll every 5s if WS fails
+    let lastId = 0;
+    setInterval(() => {
+      fetch(`${SB_URL}/rest/v1/terminal_logs?select=*&id=gt.${lastId}&order=id.asc&limit=10`, {
+        headers: { 'apikey': SB_KEY }
+      })
+      .then(r => r.json())
+      .then(rows => {
+        if (!rows || !rows.length) return;
+        rows.forEach(r => { addLine(r.tag, r.msg, r.ts); lastId = Math.max(lastId, r.id); });
+      })
+      .catch(() => {});
+    }, 5000);
+
+    connectWs();
+  })();
 </script>
 
 </body>
