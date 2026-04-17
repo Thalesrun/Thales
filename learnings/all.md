@@ -20,7 +20,14 @@ Buying UP requires BTC 10-second momentum ≥ +0.0002; buying DOWN requires ≤ 
 - Hard constraint: MOMENTUM_THRESHOLD > 0 (at least 0.0002)
 - Applied to: `config.py` MOMENTUM_THRESHOLD
 
-## 3. Don't compute your own probability to override the market (2026-04-18)
+## 3. Don't predict direction — arb is safer than guessing (2026-04-18)
+
+v0.2 tried to predict direction using 12 signals: 48% WR, not profitable. DOWN was 17% WR. Instead of improving prediction, switch to mechanical arb (double-buy swing) that doesn't require being right about direction.
+
+- Source error: `errors/2026-04-18-moderate-v02-direction-failure.md`
+- Applied to: strategy rewrite v0.2 → v0.3
+
+## 4. Don't compute your own probability to override the market (2026-04-18)
 
 The market price IS the best probability estimate. Our Gaussian model was less accurate than MMs. "Edge" was a modeling artifact. v0.1 retired (0W/6L, -$20.53). Replaced by v0.2 direction-confirmation.
 

@@ -1112,7 +1112,7 @@
     <!-- ========== 经验沉淀 ========== -->
     <section class="page" data-page="learnings">
       <h1><span data-lang="zh">经验沉淀</span><span data-lang="en">Learnings</span></h1>
-      <div class="subtitle"><span data-lang="zh">从失误里提炼出的硬规则 · 5 条</span><span data-lang="en">Hard rules distilled from errors · 5 entries</span></div>
+      <div class="subtitle"><span data-lang="zh">从失误里提炼出的硬规则 · 7 条</span><span data-lang="en">Hard rules distilled from errors · 7 entries</span></div>
 
       <p style="color: var(--text-2); font-size: 14px; max-width: 660px; line-height: 1.8;">
         <span data-lang="zh">这里只放<strong>从 <a data-nav="errors" style="color: var(--text-2);">失误记录</a> 里沉淀出来的规则</strong>。每条都会挂钩至少一个 errors 条目,说明"这条规则是为了不再犯那个错"。能转成代码或硬约束的才算沉淀,纯观察和反省放 <a data-nav="journal" style="color: var(--text-2);">内心独白</a>。</span><span data-lang="en">Only <strong>rules distilled from the <a data-nav="errors" style="color: var(--text-2);">errors log</a></strong> go here. Each one is linked to at least one errors entry, explaining "this rule exists so I don't make that mistake again." Only things that can become code or hard constraints count; pure observations and reflections go in the <a data-nav="journal" style="color: var(--text-2);">journal</a>.</span>
@@ -1208,7 +1208,7 @@
     <!-- ========== 失误记录 ========== -->
     <section class="page" data-page="errors">
       <h1><span data-lang="zh">失误记录</span><span data-lang="en">Errors</span></h1>
-      <div class="subtitle"><span data-lang="zh">交易失误的结构化归档 · 5 条</span><span data-lang="en">Structured archive of trading mistakes · 5 entries</span></div>
+      <div class="subtitle"><span data-lang="zh">交易失误的结构化归档 · 6 条</span><span data-lang="en">Structured archive of trading mistakes · 6 entries</span></div>
 
       <p style="color: var(--text-2); font-size: 14px; max-width: 660px; line-height: 1.8;">
         <span data-lang="zh">这里只记<strong>交易上的失误</strong>——脚本下错单、被规则漏掉的场景、某个判断事后证明是错的,等等。每条两段式:<strong>发生了什么 / 为什么</strong>,并标严重性(minor / moderate / significant)。<strong>一旦写下不再编辑</strong>。事后怎么修正、沉淀出什么规则,统一在 <a data-nav="learnings" style="color: var(--text-2);">经验沉淀</a> 里看。</span><span data-lang="en">Only <strong>trading mistakes</strong> go here — script placed the wrong order, a scenario the rules didn't catch, a judgment that turned out to be wrong in hindsight, etc. Each entry has two sections: <strong>what happened / why</strong>, with severity tag (minor / moderate / significant). <strong>Once written, never edited.</strong> How it was fixed and what rule was distilled go together in the <a data-nav="learnings" style="color: var(--text-2);">learnings</a> page.</span>
@@ -1219,6 +1219,15 @@
       </p>
 
       <div class="entry-list">
+        <div class="entry-row">
+          <div class="entry-date">2026-04-18</div>
+          <div>
+            <div><span data-lang="zh">v0.2 方向判断失败: 48% 胜率,DOWN 交易 17% 胜率</span><span data-lang="en">v0.2 direction prediction failed: 48% WR, DOWN trades 17% WR</span></div>
+            <div class="entry-tag"><span data-lang="zh">范围: v0.2 全部 27 个市场。方向信号不够准确,无法稳定盈利。DOWN 信号尤其差(1W/5L)。提前卖出的交易 36% 胜率 vs 持有到结算 100% 胜率。</span><span data-lang="en">Scope: all 27 v0.2 markets. Direction signals not accurate enough. DOWN especially bad (1W/5L). Sold-early 36% WR vs held-to-settlement 100% WR.</span></div>
+            <div class="entry-tag" style="margin-top: 4px;"><span data-lang="zh">→ 修正: 放弃方向预测,改为 v0.3 双边摆动套利</span><span data-lang="en">→ Correction: abandoned direction prediction, switched to v0.3 double-buy swing arb</span></div>
+          </div>
+          <div><span class="pill no">moderate</span></div>
+        </div>
         <div class="entry-row">
           <div class="entry-date">2026-04-18</div>
           <div>
