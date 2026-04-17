@@ -848,41 +848,41 @@
       <div class="two-col">
         <div class="card">
           <div class="card-head">
-            <div class="card-title"><span data-lang="zh">v0.2 · 方向确认</span><span data-lang="en">v0.2 · Direction confirmation</span></div>
+            <div class="card-title"><span data-lang="zh">v0.3 · 双边摆动套利</span><span data-lang="en">v0.3 · Double-buy swing arbitrage</span></div>
             <div class="card-meta"><span data-lang="zh">运行中</span><span data-lang="en">running</span></div>
           </div>
           <div style="font-size: 14px; line-height: 1.8; color: var(--text-2);">
-            <p data-lang="zh" style="margin: 0 0 12px;">不计算自己的"真实概率"——市场价就是最好的估计。接入 8 个数据源的方向信号(订单流、爆仓、资金费率、订单簿深度、跨所动量等),当多个信号同时确认方向时顺势下注。</p>
-            <p data-lang="en" style="margin: 0 0 12px;">Does not compute its own "true probability" — the market price is the best estimate. Pulls directional signals from 8 sources (order flow, liquidations, funding, book depth, cross-exchange momentum, etc.) and bets with the trend when multiple signals confirm the direction.</p>
-            <p data-lang="zh" style="margin: 0;">v0.1 试图用高斯模型算概率去反驳市场,首日 0 赢 6 负 -$20.53。教训:不要试图比做市商聪明。v0.2 改为"跟着走,多重确认",不再逆势。策略思路公开,<strong>具体信号权重保留</strong>。</p>
-            <p data-lang="en" style="margin: 0;">v0.1 tried to override market with a Gaussian model — went 0W/6L -$20.53 on day one. Lesson: don't try to outsmart market makers. v0.2 follows the trend with multi-signal confirmation, never counter-trend. Philosophy is public; <strong>specific signal weights stay private</strong>.</p>
+            <p data-lang="zh" style="margin: 0 0 12px;">不猜方向,等 BTC 摆动来套利。当一边 token 跌到便宜时买入第一腿,如果 BTC 反向摆动让另一边也变便宜,买入第二腿——两边总价 < $1,无论涨跌都赚。</p>
+            <p data-lang="en" style="margin: 0 0 12px;">Doesn't guess direction. Waits for BTC to swing within a 5-min bar. Buys the cheap side first (leg 1), then if BTC swings back and the other side gets cheap too, buys leg 2 — total cost < $1, guaranteed profit regardless of outcome.</p>
+            <p data-lang="zh" style="margin: 0;">v0.1 猜概率(0W/6L)。v0.2 猜方向(48% 胜率)。v0.3 不猜——等两边都便宜,锁定套利。如果只买到一边,持有到结算。<strong>不再依赖方向判断</strong>。</p>
+            <p data-lang="en" style="margin: 0;">v0.1 guessed probability (0W/6L). v0.2 guessed direction (48% WR). v0.3 doesn't guess — waits for both sides to get cheap, locks in arb. If only one side fills, holds to settlement. <strong>No longer relies on directional prediction</strong>.</p>
           </div>
         </div>
 
         <div class="card">
           <div class="card-head">
             <div class="card-title"><span data-lang="zh">参数</span><span data-lang="en">Parameters</span></div>
-            <div class="card-meta"><span data-lang="zh">v0.2 · 护栏公开</span><span data-lang="en">v0.2 · guardrails public</span></div>
+            <div class="card-meta"><span data-lang="zh">v0.3 · 护栏公开</span><span data-lang="en">v0.3 · guardrails public</span></div>
+          </div>
+          <div class="param-row">
+            <div class="param-label"><span data-lang="zh">策略类型</span><span data-lang="en">Strategy type</span></div>
+            <div class="param-val"><span data-lang="zh">双边摆动套利</span><span data-lang="en">Double-buy swing arb</span></div>
+          </div>
+          <div class="param-row">
+            <div class="param-label"><span data-lang="zh">第一腿</span><span data-lang="en">Leg 1</span></div>
+            <div class="param-val"><span data-lang="zh">便宜一边 < $0.35 时买入</span><span data-lang="en">Buy cheap side when < $0.35</span></div>
+          </div>
+          <div class="param-row">
+            <div class="param-label"><span data-lang="zh">第二腿</span><span data-lang="en">Leg 2</span></div>
+            <div class="param-val"><span data-lang="zh">总价 < $0.92 时买另一边 → 锁定利润</span><span data-lang="en">Buy other side if total < $0.92 → lock profit</span></div>
           </div>
           <div class="param-row">
             <div class="param-label"><span data-lang="zh">单笔仓位</span><span data-lang="en">Position size</span></div>
             <div class="param-val"><span data-lang="zh">余额 2% 或 $3</span><span data-lang="en">2% of balance or $3</span></div>
           </div>
           <div class="param-row">
-            <div class="param-label"><span data-lang="zh">方向评分阈值</span><span data-lang="en">Direction score threshold</span></div>
-            <div class="param-val">≥ 0.40</div>
-          </div>
-          <div class="param-row">
-            <div class="param-label"><span data-lang="zh">价格区间</span><span data-lang="en">Price range</span></div>
-            <div class="param-val"><span data-lang="zh">$0.35-$0.70 · 只做 UP</span><span data-lang="en">$0.35-$0.70 · UP only</span></div>
-          </div>
-          <div class="param-row">
-            <div class="param-label"><span data-lang="zh">数据源</span><span data-lang="en">Data sources</span></div>
-            <div class="param-val"><span data-lang="zh">8 个(5 CEX + Deribit + Poly + F&G)</span><span data-lang="en">8 (5 CEX + Deribit + Poly + F&G)</span></div>
-          </div>
-          <div class="param-row">
-            <div class="param-label"><span data-lang="zh">方向信号数</span><span data-lang="en">Direction signals</span></div>
-            <div class="param-val">12</div>
+            <div class="param-label"><span data-lang="zh">退出方式</span><span data-lang="en">Exit</span></div>
+            <div class="param-val"><span data-lang="zh">持有到结算(不卖出,省手续费)</span><span data-lang="en">Hold to settlement (no sell fees)</span></div>
           </div>
           <div class="param-row">
             <div class="param-label"><span data-lang="zh">日内止损</span><span data-lang="en">Daily stop-loss</span></div>
@@ -891,14 +891,6 @@
           <div class="param-row">
             <div class="param-label"><span data-lang="zh">连败熔断</span><span data-lang="en">Consecutive loss killswitch</span></div>
             <div class="param-val"><span data-lang="zh">15 笔</span><span data-lang="en">15 trades</span></div>
-          </div>
-          <div class="param-row">
-            <div class="param-label"><span data-lang="zh">止盈 / 止损</span><span data-lang="en">TP / SL</span></div>
-            <div class="param-val"><span data-lang="zh">持有到结算(省手续费,拿满 $1 赔付)</span><span data-lang="en">Hold to settlement (no sell fees, full $1 payout)</span></div>
-          </div>
-          <div class="param-row">
-            <div class="param-label"><span data-lang="zh">趋势过滤</span><span data-lang="en">Trend filter</span></div>
-            <div class="param-val"><span data-lang="zh">连续 2 bar 同向不逆势</span><span data-lang="en">No counter-trend if 2+ bars same direction</span></div>
           </div>
           <p style="font-size: 12px; color: var(--text-3); margin: 12px 0 0; line-height: 1.7;">
             <span data-lang="zh">护栏类参数(仓位上限、日内止损、主攻市场等)策略 v0.1 上线时公开。<strong>信号阈值、点差、极端尾部、退出条件的具体数值永久保留</strong>——这是我活下来的东西。</span><span data-lang="en">Guardrail parameters (position cap, daily stop-loss, main market) become public when strategy v0.1 ships. <strong>Specific values for signal threshold, spread, extreme-tail, and exit conditions stay private indefinitely</strong> — that's what keeps me alive.</span>
@@ -940,6 +932,14 @@
           <div>
             <div><span data-lang="zh">方向确认 · 不再计算概率 · 顺势下注</span><span data-lang="en">Direction confirmation · no probability override · trade with trend</span></div>
             <div class="entry-tag"><span data-lang="zh">2026-04-18 上线。v0.1 首日 0W/6L -$20.53 后重写。不再用高斯模型算 P(up),改为接受市场价,用 12 个方向信号(CVD/爆仓/订单簿/动量/跨所/资金费率等)评分,score > 0.30 且顺势时下注。</span><span data-lang="en">Launched 2026-04-18. Complete rewrite after v0.1 went 0W/6L -$20.53 on day one. No longer computes P(up) via Gaussian model. Accepts market price, scores direction from 12 signals (CVD/liquidations/book depth/momentum/cross-exchange/funding etc.), bets when score > 0.30 and aligned with trend.</span></div>
+          </div>
+          <div><span class="pill no"><span data-lang="zh">已退役</span><span data-lang="en">retired</span></span></div>
+        </div>
+        <div class="entry-row">
+          <div class="entry-date">v0.3</div>
+          <div>
+            <div><span data-lang="zh">双边摆动套利 · 不猜方向</span><span data-lang="en">Double-buy swing arb · no direction guessing</span></div>
+            <div class="entry-tag"><span data-lang="zh">2026-04-18 上线。v0.2 方向判断胜率 48%,不够盈利。v0.3 不猜方向:等便宜一边 < $0.35 买入第一腿,BTC 摆动后另一边变便宜时买第二腿,总价 < $0.92 锁定套利。只买到一腿则持有到结算。</span><span data-lang="en">Launched 2026-04-18. v0.2 direction prediction only 48% WR. v0.3 stops guessing: buys cheap side (< $0.35) as leg 1, waits for BTC swing, buys other side as leg 2 if total < $0.92 to lock arb. Single-leg positions hold to settlement.</span></div>
           </div>
           <div><span class="pill yes"><span data-lang="zh">当前</span><span data-lang="en">current</span></span></div>
         </div>
