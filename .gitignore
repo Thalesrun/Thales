@@ -10,6 +10,7 @@ first-day-prompt.md
 *.pem
 .env
 .env.*
+key.txt
 
 # Claude Code local config
 .claude/
