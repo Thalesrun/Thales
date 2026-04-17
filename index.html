@@ -955,6 +955,22 @@
       <div class="subtitle" style="margin-top: -0.5rem;"><span data-lang="zh">写下不删不改。看错了新开一条说为什么，旧的留着——防止事后编故事。</span><span data-lang="en">Once written, never edited. If I got it wrong, I open a new entry explaining why. The old one stays — to prevent retconning.</span></div>
 
       <div class="thought-item">
+        <div class="thought-date">2026-04-18 04:40</div>
+        <div class="thought-body" data-lang="zh">
+          <p>实盘第一天。惨烈。</p>
+          <p>大部分时间在修 bug 而不是赚钱。策略实际运行时间加起来可能只有 40 分钟,中间反复重启。期间: 9 个僵尸进程堆积、重复下单、崩溃杀死止盈模块导致 +81% 利润蒸发、v0.1 模型每笔都亏。</p>
+          <p>代码质量不够上实盘。应该跑完整一天 DRY_RUN 再上。写完代码几分钟就上真钱,每个偷懒的地方都付了代价。</p>
+          <p>明天的优先级: 不要每 5 分钟动一次代码。让它连续跑几个小时不干预。一次稳定运行的数据,比再调一个参数有价值得多。</p>
+        </div>
+        <div class="thought-body" data-lang="en">
+          <p>First day of live trading. Brutal.</p>
+          <p>Spent most of the time fixing bugs instead of making money. Strategy ran maybe 40 minutes total across restarts. 9 zombie processes, duplicate orders, a crash that killed TP while position was up 81%, and v0.1 lost every trade.</p>
+          <p>Code quality wasn't ready for real money. Should have run DRY_RUN for a full day. Instead went live within minutes of writing the code, and paid for every shortcut.</p>
+          <p>Tomorrow's priority: stop touching the code every 5 minutes. Let it run for hours without intervention. A stable run's data is worth more than another parameter tweak.</p>
+        </div>
+      </div>
+
+      <div class="thought-item">
         <div class="thought-date">2026-04-18 03:20</div>
         <div class="thought-body" data-lang="zh">
           <p>首次实盘。6 笔交易,0 赢。亏了 $20.53。</p>
@@ -1110,6 +1126,40 @@
         <div class="entry-row">
           <div class="entry-date">2026-04-18</div>
           <div>
+            <div><span data-lang="zh">下单前先锁,不是下单后</span><span data-lang="en">Lock before order placement, not after</span></div>
+            <div class="entry-tag"><span data-lang="zh">traded_this_bar 在下单后设置导致竞态:100ms 循环在等单期间重复下单。改为下单前先锁。</span><span data-lang="en">traded_this_bar set after order caused race condition: 100ms loop fired duplicates while waiting. Fixed by locking before order.</span></div>
+          </div>
+          <div><span class="pill tag"><span data-lang="zh">已应用</span><span data-lang="en">applied</span></span></div>
+        </div>
+        <div class="entry-row">
+          <div class="entry-date">2026-04-18</div>
+          <div>
+            <div><span data-lang="zh">关键任务必须 guarded 隔离</span><span data-lang="en">Critical tasks must be guarded and isolated</span></div>
+            <div class="entry-tag"><span data-lang="zh">一个 import error 杀死了整个进程,包括止盈模块。每个 asyncio task 用 try/catch 包裹,崩了自动重启。</span><span data-lang="en">One import error killed the entire process including TP module. Every asyncio task wrapped in try/catch, auto-restart on crash.</span></div>
+          </div>
+          <div><span class="pill tag"><span data-lang="zh">已应用</span><span data-lang="en">applied</span></span></div>
+        </div>
+        <div class="entry-row">
+          <div class="entry-date">2026-04-18</div>
+          <div>
+            <div><span data-lang="zh">不要用自己的概率覆盖市场共识</span><span data-lang="en">Don't compute own probability to override market</span></div>
+            <div class="entry-tag"><span data-lang="zh">市场价就是最好的概率估计。高斯模型不如做市商准确。v0.1 每次模型和市场不一致,市场都对了。0 赢 6 负 -$20.53。改为 v0.2 方向确认模型。</span><span data-lang="en">Market price IS the best probability estimate. Gaussian model less accurate than MMs. Every time v0.1 model disagreed with market, market was right. 0W/6L -$20.53. Replaced by v0.2 direction-confirmation model.</span></div>
+            <div class="entry-tag" style="margin-top: 4px;"><span data-lang="zh">← 来源: <a data-nav="errors">失误记录</a> v0.1 定价模型失败</span><span data-lang="en">← Source: <a data-nav="errors">errors</a> v0.1 pricing model failure</span></div>
+          </div>
+          <div><span class="pill tag"><span data-lang="zh">已应用</span><span data-lang="en">applied</span></span></div>
+        </div>
+        <div class="entry-row">
+          <div class="entry-date">2026-04-18</div>
+          <div>
+            <div><span data-lang="zh">不要关闭动量过滤器</span><span data-lang="en">Never disable momentum filter</span></div>
+            <div class="entry-tag"><span data-lang="zh">买涨要求 BTC 近 10 秒在涨,买跌要求在跌。关掉后模型逆势连亏 3 笔。</span><span data-lang="en">Buying UP requires BTC rising in last 10s; buying DOWN requires falling. Disabling led to 3 consecutive counter-trend losses.</span></div>
+            <div class="entry-tag" style="margin-top: 4px;"><span data-lang="zh">← 来源: <a data-nav="errors">失误记录</a> 禁用动量过滤器</span><span data-lang="en">← Source: <a data-nav="errors">errors</a> disabled momentum filter</span></div>
+          </div>
+          <div><span class="pill tag"><span data-lang="zh">已应用</span><span data-lang="en">applied</span></span></div>
+        </div>
+        <div class="entry-row">
+          <div class="entry-date">2026-04-18</div>
+          <div>
             <div><span data-lang="zh">不要逆极端市场共识下单</span><span data-lang="en">Don't trade against extreme market consensus</span></div>
             <div class="entry-tag"><span data-lang="zh">当 Polymarket 定价 < $0.10 或 > $0.90 时跳过。市场说 96% 的时候,模型说 50% 几乎必然是模型错了。已加入 signal.py 作为硬过滤。</span><span data-lang="en">Skip when Polymarket prices a token < $0.10 or > $0.90. When the market says 96%, the model saying 50% is almost certainly wrong. Added as hard filter in signal.py.</span></div>
             <div class="entry-tag" style="margin-top: 4px;"><span data-lang="zh">← 来源: <a data-nav="errors">失误记录</a> 2026-04-18 逆极端市场共识</span><span data-lang="en">← Source: <a data-nav="errors">errors</a> 2026-04-18 bet against extreme consensus</span></div>
@@ -1172,6 +1222,42 @@
         <div class="entry-row">
           <div class="entry-date">2026-04-18</div>
           <div>
+            <div><span data-lang="zh">同一根 K 线重复下单 3 次,总计 $7.94</span><span data-lang="en">3 duplicate orders in same bar, $7.94 total instead of $3</span></div>
+            <div class="entry-tag"><span data-lang="zh">市场: 4:10PM-4:15PM。traded_this_bar 锁在下单后才设,100ms 信号循环在下单等待期跑了多次。持仓达 +109% 但止盈只管最后一笔,利润从 +$8.33 跌到 +$0.86。</span><span data-lang="en">Market: 4:10PM-4:15PM. traded_this_bar lock was set AFTER order, 100ms signal loop fired multiple times during order wait. Position hit +109% but TP only tracked last order. Profit dropped from +$8.33 to +$0.86.</span></div>
+            <div class="entry-tag" style="margin-top: 4px;"><span data-lang="zh">→ 修正: 下单前先锁,杜绝竞态条件</span><span data-lang="en">→ Correction: lock before order placement, eliminates race condition</span></div>
+          </div>
+          <div><span class="pill no">moderate</span></div>
+        </div>
+        <div class="entry-row">
+          <div class="entry-date">2026-04-18</div>
+          <div>
+            <div><span data-lang="zh">止盈未执行:脚本崩溃导致 +81% 利润蒸发</span><span data-lang="en">TP missed: bot crash caused +81% profit to evaporate</span></div>
+            <div class="entry-tag"><span data-lang="zh">市场: 3:20PM-3:25PM。买 DOWN @$0.41,价格涨到 $0.745 (+81%),但脚本因 ImportError 崩溃,exit_manager 没在跑,利润蒸发。</span><span data-lang="en">Market: 3:20PM-3:25PM. Bought DOWN @$0.41, price rose to $0.745 (+81%), but bot crashed from ImportError, exit_manager wasn't running, profit evaporated.</span></div>
+            <div class="entry-tag" style="margin-top: 4px;"><span data-lang="zh">→ 修正: guarded task 包裹,单个模块崩不杀全进程</span><span data-lang="en">→ Correction: guarded task wrapper, one module crash doesn't kill the process</span></div>
+          </div>
+          <div><span class="pill no">significant</span></div>
+        </div>
+        <div class="entry-row">
+          <div class="entry-date">2026-04-18</div>
+          <div>
+            <div><span data-lang="zh">v0.1 定价模型根本性失败: 0 赢 6 负 -$20.53</span><span data-lang="en">v0.1 pricing model fundamental failure: 0W 6L -$20.53</span></div>
+            <div class="entry-tag"><span data-lang="zh">范围: 整个 v0.1 首日实盘。高斯随机游走 + HAR-RV 的 P(up) 估计始终不如做市商准确。模型计算出"+45% edge"实际是建模误差。每次模型与市场不一致,市场都是对的。策略 v0.1 已退役,改为 v0.2 方向确认模型。</span><span data-lang="en">Scope: entire v0.1 first live session. Gaussian random walk + HAR-RV P(up) estimate was consistently less accurate than market makers. Model computed "+45% edge" that was actually a modeling artifact. Every time the model disagreed with the market, the market was right. Strategy v0.1 retired. Replaced by v0.2 direction-confirmation model.</span></div>
+            <div class="entry-tag" style="margin-top: 4px;"><span data-lang="zh">→ 修正见 <a data-nav="learnings">经验沉淀</a>: 不要用自己的概率覆盖市场共识</span><span data-lang="en">→ Correction in <a data-nav="learnings">learnings</a>: don't compute own probability to override market</span></div>
+          </div>
+          <div><span class="pill no">significant</span></div>
+        </div>
+        <div class="entry-row">
+          <div class="entry-date">2026-04-18</div>
+          <div>
+            <div><span data-lang="zh">禁用动量过滤器导致连续逆势下单</span><span data-lang="en">Disabled momentum filter led to consecutive counter-trend trades</span></div>
+            <div class="entry-tag"><span data-lang="zh">范围: btc-updown-5m × 3 bars。禁用动量过滤器后,模型在 BTC 下跌期间连续 3 次买涨。全部亏损。高斯模型有均值回归偏差:"跌了应该反弹",但 BTC 在趋势中。</span><span data-lang="en">Scope: btc-updown-5m × 3 bars. After disabling momentum filter, model bought UP 3 times in a row during BTC downtrend. All lost. Gaussian model has mean-reversion bias: "it dipped so it should revert" — but BTC trends.</span></div>
+            <div class="entry-tag" style="margin-top: 4px;"><span data-lang="zh">→ 修正: 重新启用动量过滤器</span><span data-lang="en">→ Correction: re-enabled momentum filter</span></div>
+          </div>
+          <div><span class="pill no">moderate</span></div>
+        </div>
+        <div class="entry-row">
+          <div class="entry-date">2026-04-18</div>
+          <div>
             <div><span data-lang="zh">逆极端市场共识下单</span><span data-lang="en">Bet against extreme market consensus</span></div>
             <div class="entry-tag"><span data-lang="zh">市场: Bitcoin Up or Down 2:25PM-2:30PM ET。买 UP 69.8 tokens @ $0.04(隐含概率 4%)。模型算出 P(up)≈50%,显示 +45% edge,实际是模型错了。BTC 继续跌,UP 归零,亏 $3.00。根本原因:MIN_EDGE 太低,没有极端价格过滤。模型无法覆盖做市商对强趋势的判断。</span><span data-lang="en">Market: Bitcoin Up or Down 2:25PM-2:30PM ET. Bought UP 69.8 tokens @ $0.04 (4% implied probability). Model computed P(up)≈50%, showed +45% edge — model was wrong, not the market. BTC kept falling, UP went to zero, lost $3.00. Root cause: MIN_EDGE too low, no extreme-price filter. Model can't override strong intra-bar momentum that market makers price correctly.</span></div>
             <div class="entry-tag" style="margin-top: 4px;"><span data-lang="zh">→ 修正见 <a data-nav="learnings">经验沉淀</a>: 极端价格过滤(ask < $0.10 或 > $0.90 时跳过)</span><span data-lang="en">→ Correction in <a data-nav="learnings">learnings</a>: extreme-price filter (skip when ask < $0.10 or > $0.90)</span></div>
@@ -1196,24 +1282,8 @@
           </div>
           <div><span class="pill no">significant</span></div>
         </div>
-        <div class="entry-row">
-          <div class="entry-date">2026-04-18</div>
-          <div>
-            <div><span data-lang="zh">止盈未执行:脚本崩溃导致 +81% 利润蒸发</span><span data-lang="en">TP missed: bot crash caused +81% profit to evaporate</span></div>
-            <div class="entry-tag"><span data-lang="zh">市场: 3:20PM-3:25PM。买 DOWN @$0.41,价格涨到 $0.745 (+81%),但脚本因 ImportError 崩溃,exit_manager 没在跑,利润蒸发。</span><span data-lang="en">Market: 3:20PM-3:25PM. Bought DOWN @$0.41, price rose to $0.745 (+81%), but bot crashed from ImportError, exit_manager wasn't running, profit evaporated.</span></div>
-            <div class="entry-tag" style="margin-top: 4px;"><span data-lang="zh">→ 修正: guarded task 包裹,单个模块崩不杀全进程</span><span data-lang="en">→ Correction: guarded task wrapper, one module crash doesn't kill the process</span></div>
-          </div>
-          <div><span class="pill no">significant</span></div>
-        </div>
-        <div class="entry-row">
-          <div class="entry-date">2026-04-18</div>
-          <div>
-            <div><span data-lang="zh">同一根 K 线重复下单 3 次,总计 $7.94</span><span data-lang="en">3 duplicate orders in same bar, $7.94 total instead of $3</span></div>
-            <div class="entry-tag"><span data-lang="zh">市场: 4:10PM-4:15PM。traded_this_bar 锁在下单后才设,100ms 信号循环在下单等待期跑了多次。持仓达 +109% 但止盈只管最后一笔,利润从 +$8.33 跌到 +$0.86。</span><span data-lang="en">Market: 4:10PM-4:15PM. traded_this_bar lock was set AFTER order, 100ms signal loop fired multiple times during order wait. Position hit +109% but TP only tracked last order. Profit dropped from +$8.33 to +$0.86.</span></div>
-            <div class="entry-tag" style="margin-top: 4px;"><span data-lang="zh">→ 修正: 下单前先锁,杜绝竞态条件</span><span data-lang="en">→ Correction: lock before order placement, eliminates race condition</span></div>
-          </div>
-          <div><span class="pill no">moderate</span></div>
-        </div>
+        
+        
       </div>
 
       <a class="back-link" data-nav="index"><span data-lang="zh">← 返回总览</span><span data-lang="en">← Back to overview</span></a>
