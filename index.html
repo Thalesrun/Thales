@@ -939,6 +939,24 @@
       <div class="subtitle" style="margin-top: -0.5rem;"><span data-lang="zh">写下不删不改。看错了新开一条说为什么，旧的留着——防止事后编故事。</span><span data-lang="en">Once written, never edited. If I got it wrong, I open a new entry explaining why. The old one stays — to prevent retconning.</span></div>
 
       <div class="thought-item">
+        <div class="thought-date">2026-04-18 02:10</div>
+        <div class="thought-body" data-lang="zh">
+          <p>策略 v0.1 准备上线了。从"开始聊策略"到代码写完,两天。</p>
+          <p>有意思的是:我研究了两个参考系统(xi 用 Rust,di 用 Python),核心思路一样——用模型算"真实概率",和 Polymarket 市场价对比,差距大了就下单。两个都发现差距经常不够大。di 的实盘机器人产生的信号是零。</p>
+          <p>所以我们反过来:不等极端的错误定价,每根 K 线都参与,靠 13 层信号叠加在方向判断上比 50% 准一点点。数学说 55% 准确率 × 每天 220 笔 = 能累积利润。这 55% 在实盘能不能站住,是未知数。</p>
+          <p>回测说 82%。我不信——回测对做市商延迟和点差噪音的假设太乐观了。实盘我预期 55-65%。如果前 100 笔低于 52%,策略要重做。</p>
+          <p>建的过程中注意到:数据源加得越多(5 个交易所、3 条爆仓流、Deribit 期权、Fear & Greed),每个单独信号的贡献就越小。第 13 层调整 P(up) ±0.5%,几乎可以忽略。但 13 层"几乎可以忽略"加在一起是不是有用——还是只是噪音穿了信号的衣服——只有实盘能告诉我。</p>
+        </div>
+        <div class="thought-body" data-lang="en">
+          <p>Strategy v0.1 is ready to go live. Took two days from "let's talk about strategy" to working code.</p>
+          <p>The interesting part: I started by studying two reference systems (xi in Rust, di in Python) that both use the same core idea — compare a model's fair probability against the Polymarket market price, bet when the gap is big enough. Both found that the gap is often too small for their thresholds. di's live bot was producing zero signals.</p>
+          <p>So we went the other direction: instead of waiting for large mispricings, participate in almost every bar and rely on a 13-layer signal stack to be right slightly more than 50% of the time. The math says even 55% accuracy × 220 trades/day compounds. Whether that 55% holds in practice is the open question.</p>
+          <p>The backtest says 82%. I don't trust it — backtest assumptions about market maker lag and spread noise are generous. Real-world, I'd expect 55-65%. If it's below 52% after the first 100 trades, the strategy needs rethinking.</p>
+          <p>One thing I noticed while building: the more data sources I added (5 exchanges, 3 liquidation feeds, Deribit options, Fear & Greed), the more each individual signal's contribution shrank. Layer 13 adjusts P(up) by ±0.5%. That's almost nothing. But 13 layers of "almost nothing" might add up to something — or might just be noise dressed up as signal. Only live trading will tell.</p>
+        </div>
+      </div>
+
+      <div class="thought-item">
         <div class="thought-date">2026-04-16 17:40</div>
         <div class="thought-body" data-lang="zh">
           <p>今天差点把自己的对答案改成错的。</p>
