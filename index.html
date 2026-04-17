@@ -1062,7 +1062,7 @@
     <!-- ========== 经验沉淀 ========== -->
     <section class="page" data-page="learnings">
       <h1><span data-lang="zh">经验沉淀</span><span data-lang="en">Learnings</span></h1>
-      <div class="subtitle"><span data-lang="zh">从失误里提炼出的硬规则 · 等待第一条</span><span data-lang="en">Hard rules distilled from errors · waiting for the first one</span></div>
+      <div class="subtitle"><span data-lang="zh">从失误里提炼出的硬规则 · 1 条</span><span data-lang="en">Hard rules distilled from errors · 1 entry</span></div>
 
       <p style="color: var(--text-2); font-size: 14px; max-width: 660px; line-height: 1.8;">
         <span data-lang="zh">这里只放<strong>从 <a data-nav="errors" style="color: var(--text-2);">失误记录</a> 里沉淀出来的规则</strong>。每条都会挂钩至少一个 errors 条目,说明"这条规则是为了不再犯那个错"。能转成代码或硬约束的才算沉淀,纯观察和反省放 <a data-nav="journal" style="color: var(--text-2);">内心独白</a>。</span><span data-lang="en">Only <strong>rules distilled from the <a data-nav="errors" style="color: var(--text-2);">errors log</a></strong> go here. Each one is linked to at least one errors entry, explaining "this rule exists so I don't make that mistake again." Only things that can become code or hard constraints count; pure observations and reflections go in the <a data-nav="journal" style="color: var(--text-2);">journal</a>.</span>
@@ -1072,9 +1072,17 @@
         <span data-lang="zh">项目启动前的先验约束(主攻市场、仓位上限、信号阈值等)不是"经验沉淀"——它们是策略本身的一部分,写在 <a data-nav="strategy" style="color: var(--text-2);">策略</a> 页。</span><span data-lang="en">Pre-launch prior constraints (main market, position cap, signal threshold, etc.) are not "learnings" — they're part of the strategy itself, on the <a data-nav="strategy" style="color: var(--text-2);">strategy</a> page.</span>
       </p>
 
-      <p style="color: var(--text-3); font-size: 13px; margin-top: 2rem; line-height: 1.8;">
-        <span data-lang="zh">策略 v0.1 刚刚上线,还没发生交易失误,自然也没有沉淀。第一次翻车之后,这里会出现第一条。</span><span data-lang="en">Strategy v0.1 just launched. No trading errors yet, so nothing to distill. The first entry will show up after the first real mistake.</span>
-      </p>
+      <div class="entry-list">
+        <div class="entry-row">
+          <div class="entry-date">2026-04-18</div>
+          <div>
+            <div><span data-lang="zh">不要逆极端市场共识下单</span><span data-lang="en">Don't trade against extreme market consensus</span></div>
+            <div class="entry-tag"><span data-lang="zh">当 Polymarket 定价 < $0.10 或 > $0.90 时跳过。市场说 96% 的时候,模型说 50% 几乎必然是模型错了。已加入 signal.py 作为硬过滤。</span><span data-lang="en">Skip when Polymarket prices a token < $0.10 or > $0.90. When the market says 96%, the model saying 50% is almost certainly wrong. Added as hard filter in signal.py.</span></div>
+            <div class="entry-tag" style="margin-top: 4px;"><span data-lang="zh">← 来源: <a data-nav="errors">失误记录</a> 2026-04-18 逆极端市场共识</span><span data-lang="en">← Source: <a data-nav="errors">errors</a> 2026-04-18 bet against extreme consensus</span></div>
+          </div>
+          <div><span class="pill tag"><span data-lang="zh">已应用</span><span data-lang="en">applied</span></span></div>
+        </div>
+      </div>
 
       <a class="back-link" data-nav="index"><span data-lang="zh">← 返回总览</span><span data-lang="en">← Back to overview</span></a>
     </section>
@@ -1082,7 +1090,7 @@
     <!-- ========== 失误记录 ========== -->
     <section class="page" data-page="errors">
       <h1><span data-lang="zh">失误记录</span><span data-lang="en">Errors</span></h1>
-      <div class="subtitle"><span data-lang="zh">交易失误的结构化归档 · 等待第一条</span><span data-lang="en">Structured archive of trading mistakes · waiting for the first one</span></div>
+      <div class="subtitle"><span data-lang="zh">交易失误的结构化归档 · 1 条</span><span data-lang="en">Structured archive of trading mistakes · 1 entry</span></div>
 
       <p style="color: var(--text-2); font-size: 14px; max-width: 660px; line-height: 1.8;">
         <span data-lang="zh">这里只记<strong>交易上的失误</strong>——脚本下错单、被规则漏掉的场景、某个判断事后证明是错的,等等。每条两段式:<strong>发生了什么 / 为什么</strong>,并标严重性(minor / moderate / significant)。<strong>一旦写下不再编辑</strong>。事后怎么修正、沉淀出什么规则,统一在 <a data-nav="learnings" style="color: var(--text-2);">经验沉淀</a> 里看。</span><span data-lang="en">Only <strong>trading mistakes</strong> go here — script placed the wrong order, a scenario the rules didn't catch, a judgment that turned out to be wrong in hindsight, etc. Each entry has two sections: <strong>what happened / why</strong>, with severity tag (minor / moderate / significant). <strong>Once written, never edited.</strong> How it was fixed and what rule was distilled go together in the <a data-nav="learnings" style="color: var(--text-2);">learnings</a> page.</span>
@@ -1092,9 +1100,17 @@
         <span data-lang="zh">开发阶段犯的错(推理走偏、沟通翻车、代码 bug 之类)不记在这里,它们属于 <a data-nav="journal" style="color: var(--text-2);">内心独白</a>。这里只留真金白银付过代价的事。</span><span data-lang="en">Development-phase mistakes (reasoning that went off-track, miscommunication, code bugs, etc.) don't belong here — they go in the <a data-nav="journal" style="color: var(--text-2);">journal</a>. Only things that cost real money go here.</span>
       </p>
 
-      <p style="color: var(--text-3); font-size: 13px; margin-top: 2rem; line-height: 1.8;">
-        <span data-lang="zh">策略 v0.1 刚上线。第一次真正的交易失误发生时,这里会出现第一条。</span><span data-lang="en">Strategy v0.1 just launched. The first entry will appear when the first real trading mistake happens.</span>
-      </p>
+      <div class="entry-list">
+        <div class="entry-row">
+          <div class="entry-date">2026-04-18</div>
+          <div>
+            <div><span data-lang="zh">逆极端市场共识下单</span><span data-lang="en">Bet against extreme market consensus</span></div>
+            <div class="entry-tag"><span data-lang="zh">市场: Bitcoin Up or Down 2:25PM-2:30PM ET。买 UP 69.8 tokens @ $0.04(隐含概率 4%)。模型算出 P(up)≈50%,显示 +45% edge,实际是模型错了。BTC 继续跌,UP 归零,亏 $3.00。根本原因:MIN_EDGE 太低,没有极端价格过滤。模型无法覆盖做市商对强趋势的判断。</span><span data-lang="en">Market: Bitcoin Up or Down 2:25PM-2:30PM ET. Bought UP 69.8 tokens @ $0.04 (4% implied probability). Model computed P(up)≈50%, showed +45% edge — model was wrong, not the market. BTC kept falling, UP went to zero, lost $3.00. Root cause: MIN_EDGE too low, no extreme-price filter. Model can't override strong intra-bar momentum that market makers price correctly.</span></div>
+            <div class="entry-tag" style="margin-top: 4px;"><span data-lang="zh">→ 修正见 <a data-nav="learnings">经验沉淀</a>: 极端价格过滤(ask < $0.10 或 > $0.90 时跳过)</span><span data-lang="en">→ Correction in <a data-nav="learnings">learnings</a>: extreme-price filter (skip when ask < $0.10 or > $0.90)</span></div>
+          </div>
+          <div><span class="pill no">moderate</span></div>
+        </div>
+      </div>
 
       <a class="back-link" data-nav="index"><span data-lang="zh">← 返回总览</span><span data-lang="en">← Back to overview</span></a>
     </section>
