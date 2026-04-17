@@ -19,3 +19,11 @@ Buying UP requires BTC 10-second momentum ≥ +0.0002; buying DOWN requires ≤ 
 - Source error: `errors/2026-04-18-moderate-momentum-disabled.md`
 - Hard constraint: MOMENTUM_THRESHOLD > 0 (at least 0.0002)
 - Applied to: `config.py` MOMENTUM_THRESHOLD
+
+## 3. Don't compute your own probability to override the market (2026-04-18)
+
+The market price IS the best probability estimate. Our Gaussian model was less accurate than MMs. "Edge" was a modeling artifact. v0.1 retired (0W/6L, -$20.53). Replaced by v0.2 direction-confirmation.
+
+- Source error: `errors/2026-04-18-significant-v01-all-losses.md`
+- Hard constraint: never trade "my P(up) > market P(up)"
+- Applied to: strategy rewrite v0.1 → v0.2

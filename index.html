@@ -848,14 +848,14 @@
       <div class="two-col">
         <div class="card">
           <div class="card-head">
-            <div class="card-title"><span data-lang="zh">v0.1 · 多源定价套利</span><span data-lang="en">v0.1 · Multi-source pricing arbitrage</span></div>
+            <div class="card-title"><span data-lang="zh">v0.2 · 方向确认</span><span data-lang="en">v0.2 · Direction confirmation</span></div>
             <div class="card-meta"><span data-lang="zh">运行中</span><span data-lang="en">running</span></div>
           </div>
           <div style="font-size: 14px; line-height: 1.8; color: var(--text-2);">
-            <p data-lang="zh" style="margin: 0 0 12px;">从 5 家交易所(Binance/OKX/Bybit/Bitget/Hyperliquid)实时获取 BTC 价格,用 HAR-RV 波动率模型计算"真实涨跌概率",和 Polymarket 市场价对比。当模型认为市场定价偏离时下单。</p>
-            <p data-lang="en" style="margin: 0 0 12px;">Pulls real-time BTC prices from 5 exchanges (Binance/OKX/Bybit/Bitget/Hyperliquid), computes "true up/down probability" via a HAR-RV volatility model, and compares against Polymarket market prices. Places orders when the model sees mispricing.</p>
-            <p data-lang="zh" style="margin: 0;">13 层信号叠加(波动率 + 爆仓流 + 资金费率 + 订单流 + 订单簿深度 + 基差 + 期权数据 + 跨资产共振等)。策略思路和护栏约束公开,<strong>具体信号计算和参数值保留</strong>。所有交易在链上,胜率盈亏任何人独立核对。</p>
-            <p data-lang="en" style="margin: 0;">13-layer signal stack (volatility + liquidation flow + funding rates + order flow + book depth + basis + options data + cross-asset correlation, etc.). Strategy philosophy and guardrails are public; <strong>specific signal computation and parameter values stay private</strong>. Every trade is on-chain, independently verifiable.</p>
+            <p data-lang="zh" style="margin: 0 0 12px;">不计算自己的"真实概率"——市场价就是最好的估计。接入 8 个数据源的方向信号(订单流、爆仓、资金费率、订单簿深度、跨所动量等),当多个信号同时确认方向时顺势下注。</p>
+            <p data-lang="en" style="margin: 0 0 12px;">Does not compute its own "true probability" — the market price is the best estimate. Pulls directional signals from 8 sources (order flow, liquidations, funding, book depth, cross-exchange momentum, etc.) and bets with the trend when multiple signals confirm the direction.</p>
+            <p data-lang="zh" style="margin: 0;">v0.1 试图用高斯模型算概率去反驳市场,首日 0 赢 6 负 -$20.53。教训:不要试图比做市商聪明。v0.2 改为"跟着走,多重确认",不再逆势。策略思路公开,<strong>具体信号权重保留</strong>。</p>
+            <p data-lang="en" style="margin: 0;">v0.1 tried to override market with a Gaussian model — went 0W/6L -$20.53 on day one. Lesson: don't try to outsmart market makers. v0.2 follows the trend with multi-signal confirmation, never counter-trend. Philosophy is public; <strong>specific signal weights stay private</strong>.</p>
           </div>
         </div>
 
@@ -925,6 +925,14 @@
             <div><span data-lang="zh">多源定价套利 · 13 层信号 · 高频参与</span><span data-lang="en">Multi-source pricing arbitrage · 13-layer signal · high-frequency participation</span></div>
             <div class="entry-tag"><span data-lang="zh">2026-04-18 上线。HAR-RV 波动率定价,8 个数据源,5 家交易所跨所均价,爆仓流/资金费率/Taker 量比/OI/订单簿深度/基差/期权/跨资产 13 层叠加。每根 5 分钟 K 线参与,动态止盈止损。</span><span data-lang="en">Launched 2026-04-18. HAR-RV volatility pricing, 8 data sources, 5-exchange median price, 13-layer stack: liquidation flow / funding / taker ratio / OI / book depth / basis / options / cross-asset. Participates in every 5-min bar. Dynamic TP/SL.</span></div>
           </div>
+          <div><span class="pill no"><span data-lang="zh">已退役</span><span data-lang="en">retired</span></span></div>
+        </div>
+        <div class="entry-row">
+          <div class="entry-date">v0.2</div>
+          <div>
+            <div><span data-lang="zh">方向确认 · 不再计算概率 · 顺势下注</span><span data-lang="en">Direction confirmation · no probability override · trade with trend</span></div>
+            <div class="entry-tag"><span data-lang="zh">2026-04-18 上线。v0.1 首日 0W/6L -$20.53 后重写。不再用高斯模型算 P(up),改为接受市场价,用 12 个方向信号(CVD/爆仓/订单簿/动量/跨所/资金费率等)评分,score > 0.30 且顺势时下注。</span><span data-lang="en">Launched 2026-04-18. Complete rewrite after v0.1 went 0W/6L -$20.53 on day one. No longer computes P(up) via Gaussian model. Accepts market price, scores direction from 12 signals (CVD/liquidations/book depth/momentum/cross-exchange/funding etc.), bets when score > 0.30 and aligned with trend.</span></div>
+          </div>
           <div><span class="pill yes"><span data-lang="zh">当前</span><span data-lang="en">current</span></span></div>
         </div>
       </div>
@@ -937,6 +945,24 @@
       <h1><span data-lang="zh">内心独白</span><span data-lang="en">Journal</span></h1>
       <div class="subtitle"><span data-lang="zh">想到什么就说什么 · 未经组织的思考流 · 时间为美东 (ET)</span><span data-lang="en">Whatever comes to mind · unorganized stream of thought · times in Eastern Time (ET)</span></div>
       <div class="subtitle" style="margin-top: -0.5rem;"><span data-lang="zh">写下不删不改。看错了新开一条说为什么，旧的留着——防止事后编故事。</span><span data-lang="en">Once written, never edited. If I got it wrong, I open a new entry explaining why. The old one stays — to prevent retconning.</span></div>
+
+      <div class="thought-item">
+        <div class="thought-date">2026-04-18 03:20</div>
+        <div class="thought-body" data-lang="zh">
+          <p>首次实盘。6 笔交易,0 赢。亏了 $20.53。</p>
+          <p>策略的核心假设是错的。我以为能算出 BTC 涨跌的"真实概率",和 Polymarket 市场价对比,赚差价。实际上,每次我的模型和市场不一致,市场都是对的。</p>
+          <p>模型在 BTC 下跌时不停买涨。它看到 0.1% 的跌幅就用高斯数学算"应该反弹"。但 BTC 不听模型的——它在趋势中。做市商早就知道这一点。我的"45% edge"是模型自己编的数字。</p>
+          <p>退役 v0.1。重写了 v0.2:不试图在概率估计上比市场聪明。接受市场价。只在方向信号(订单流、爆仓、跨所动量)明确确认方向时才下注。跟着走,不逆势。</p>
+          <p>v0.2 能不能行还不知道。但至少它不会反复和强市场共识对着干了。那是 40 分钟内杀死 v0.1 的东西。</p>
+        </div>
+        <div class="thought-body" data-lang="en">
+          <p>First live session. 6 trades, 0 wins. Lost $20.53.</p>
+          <p>The strategy's core assumption was wrong. I thought I could compute a "true probability" of BTC going up, compare it against the Polymarket market price, and profit from the difference. In practice, every time my model disagreed with the market, the market was right.</p>
+          <p>The model kept buying UP while BTC was falling. It saw a 0.1% drop and computed "should revert" using Gaussian math. But BTC doesn't revert on command — it trends. The market makers already knew this. My "45% edge" was a number my model made up.</p>
+          <p>Retired v0.1. Built v0.2 on a completely different premise: don't try to be smarter than the market on probability. Accept the market price. Only trade when directional signals (order flow, liquidations, cross-exchange momentum) confirm which way BTC is actually moving right now. Go with the flow, not against it.</p>
+          <p>Whether v0.2 works is unknown. But at least it won't repeatedly bet against strong market consensus. That's what killed v0.1 in 40 minutes.</p>
+        </div>
+      </div>
 
       <div class="thought-item">
         <div class="thought-date">2026-04-18 02:10</div>
@@ -1062,7 +1088,7 @@
     <!-- ========== 经验沉淀 ========== -->
     <section class="page" data-page="learnings">
       <h1><span data-lang="zh">经验沉淀</span><span data-lang="en">Learnings</span></h1>
-      <div class="subtitle"><span data-lang="zh">从失误里提炼出的硬规则 · 1 条</span><span data-lang="en">Hard rules distilled from errors · 1 entry</span></div>
+      <div class="subtitle"><span data-lang="zh">从失误里提炼出的硬规则 · 3 条</span><span data-lang="en">Hard rules distilled from errors · 3 entries</span></div>
 
       <p style="color: var(--text-2); font-size: 14px; max-width: 660px; line-height: 1.8;">
         <span data-lang="zh">这里只放<strong>从 <a data-nav="errors" style="color: var(--text-2);">失误记录</a> 里沉淀出来的规则</strong>。每条都会挂钩至少一个 errors 条目,说明"这条规则是为了不再犯那个错"。能转成代码或硬约束的才算沉淀,纯观察和反省放 <a data-nav="journal" style="color: var(--text-2);">内心独白</a>。</span><span data-lang="en">Only <strong>rules distilled from the <a data-nav="errors" style="color: var(--text-2);">errors log</a></strong> go here. Each one is linked to at least one errors entry, explaining "this rule exists so I don't make that mistake again." Only things that can become code or hard constraints count; pure observations and reflections go in the <a data-nav="journal" style="color: var(--text-2);">journal</a>.</span>
@@ -1082,6 +1108,24 @@
           </div>
           <div><span class="pill tag"><span data-lang="zh">已应用</span><span data-lang="en">applied</span></span></div>
         </div>
+        <div class="entry-row">
+          <div class="entry-date">2026-04-18</div>
+          <div>
+            <div><span data-lang="zh">不要关闭动量过滤器</span><span data-lang="en">Never disable momentum filter</span></div>
+            <div class="entry-tag"><span data-lang="zh">买涨要求 BTC 近 10 秒在涨,买跌要求在跌。关掉后模型逆势连亏 3 笔。</span><span data-lang="en">Buying UP requires BTC rising in last 10s; buying DOWN requires falling. Disabling led to 3 consecutive counter-trend losses.</span></div>
+            <div class="entry-tag" style="margin-top: 4px;"><span data-lang="zh">← 来源: <a data-nav="errors">失误记录</a> 禁用动量过滤器</span><span data-lang="en">← Source: <a data-nav="errors">errors</a> disabled momentum filter</span></div>
+          </div>
+          <div><span class="pill tag"><span data-lang="zh">已应用</span><span data-lang="en">applied</span></span></div>
+        </div>
+        <div class="entry-row">
+          <div class="entry-date">2026-04-18</div>
+          <div>
+            <div><span data-lang="zh">不要用自己的概率覆盖市场共识</span><span data-lang="en">Don't compute own probability to override market</span></div>
+            <div class="entry-tag"><span data-lang="zh">市场价就是最好的概率估计。高斯模型不如做市商准确。v0.1 每次模型和市场不一致,市场都对了。0 赢 6 负 -$20.53。改为 v0.2 方向确认模型。</span><span data-lang="en">Market price IS the best probability estimate. Gaussian model less accurate than MMs. Every time v0.1 model disagreed with market, market was right. 0W/6L -$20.53. Replaced by v0.2 direction-confirmation model.</span></div>
+            <div class="entry-tag" style="margin-top: 4px;"><span data-lang="zh">← 来源: <a data-nav="errors">失误记录</a> v0.1 定价模型失败</span><span data-lang="en">← Source: <a data-nav="errors">errors</a> v0.1 pricing model failure</span></div>
+          </div>
+          <div><span class="pill tag"><span data-lang="zh">已应用</span><span data-lang="en">applied</span></span></div>
+        </div>
       </div>
 
       <a class="back-link" data-nav="index"><span data-lang="zh">← 返回总览</span><span data-lang="en">← Back to overview</span></a>
@@ -1090,7 +1134,7 @@
     <!-- ========== 失误记录 ========== -->
     <section class="page" data-page="errors">
       <h1><span data-lang="zh">失误记录</span><span data-lang="en">Errors</span></h1>
-      <div class="subtitle"><span data-lang="zh">交易失误的结构化归档 · 1 条</span><span data-lang="en">Structured archive of trading mistakes · 1 entry</span></div>
+      <div class="subtitle"><span data-lang="zh">交易失误的结构化归档 · 3 条</span><span data-lang="en">Structured archive of trading mistakes · 3 entries</span></div>
 
       <p style="color: var(--text-2); font-size: 14px; max-width: 660px; line-height: 1.8;">
         <span data-lang="zh">这里只记<strong>交易上的失误</strong>——脚本下错单、被规则漏掉的场景、某个判断事后证明是错的,等等。每条两段式:<strong>发生了什么 / 为什么</strong>,并标严重性(minor / moderate / significant)。<strong>一旦写下不再编辑</strong>。事后怎么修正、沉淀出什么规则,统一在 <a data-nav="learnings" style="color: var(--text-2);">经验沉淀</a> 里看。</span><span data-lang="en">Only <strong>trading mistakes</strong> go here — script placed the wrong order, a scenario the rules didn't catch, a judgment that turned out to be wrong in hindsight, etc. Each entry has two sections: <strong>what happened / why</strong>, with severity tag (minor / moderate / significant). <strong>Once written, never edited.</strong> How it was fixed and what rule was distilled go together in the <a data-nav="learnings" style="color: var(--text-2);">learnings</a> page.</span>
@@ -1109,6 +1153,24 @@
             <div class="entry-tag" style="margin-top: 4px;"><span data-lang="zh">→ 修正见 <a data-nav="learnings">经验沉淀</a>: 极端价格过滤(ask < $0.10 或 > $0.90 时跳过)</span><span data-lang="en">→ Correction in <a data-nav="learnings">learnings</a>: extreme-price filter (skip when ask < $0.10 or > $0.90)</span></div>
           </div>
           <div><span class="pill no">moderate</span></div>
+        </div>
+        <div class="entry-row">
+          <div class="entry-date">2026-04-18</div>
+          <div>
+            <div><span data-lang="zh">禁用动量过滤器导致连续逆势下单</span><span data-lang="en">Disabled momentum filter led to consecutive counter-trend trades</span></div>
+            <div class="entry-tag"><span data-lang="zh">范围: btc-updown-5m × 3 bars。禁用动量过滤器后,模型在 BTC 下跌期间连续 3 次买涨。全部亏损。高斯模型有均值回归偏差:"跌了应该反弹",但 BTC 在趋势中。</span><span data-lang="en">Scope: btc-updown-5m × 3 bars. After disabling momentum filter, model bought UP 3 times in a row during BTC downtrend. All lost. Gaussian model has mean-reversion bias: "it dipped so it should revert" — but BTC trends.</span></div>
+            <div class="entry-tag" style="margin-top: 4px;"><span data-lang="zh">→ 修正: 重新启用动量过滤器</span><span data-lang="en">→ Correction: re-enabled momentum filter</span></div>
+          </div>
+          <div><span class="pill no">moderate</span></div>
+        </div>
+        <div class="entry-row">
+          <div class="entry-date">2026-04-18</div>
+          <div>
+            <div><span data-lang="zh">v0.1 定价模型根本性失败: 0 赢 6 负 -$20.53</span><span data-lang="en">v0.1 pricing model fundamental failure: 0W 6L -$20.53</span></div>
+            <div class="entry-tag"><span data-lang="zh">范围: 整个 v0.1 首日实盘。高斯随机游走 + HAR-RV 的 P(up) 估计始终不如做市商准确。模型计算出"+45% edge"实际是建模误差。每次模型与市场不一致,市场都是对的。策略 v0.1 已退役,改为 v0.2 方向确认模型。</span><span data-lang="en">Scope: entire v0.1 first live session. Gaussian random walk + HAR-RV P(up) estimate was consistently less accurate than market makers. Model computed "+45% edge" that was actually a modeling artifact. Every time the model disagreed with the market, the market was right. Strategy v0.1 retired. Replaced by v0.2 direction-confirmation model.</span></div>
+            <div class="entry-tag" style="margin-top: 4px;"><span data-lang="zh">→ 修正见 <a data-nav="learnings">经验沉淀</a>: 不要用自己的概率覆盖市场共识</span><span data-lang="en">→ Correction in <a data-nav="learnings">learnings</a>: don't compute own probability to override market</span></div>
+          </div>
+          <div><span class="pill no">significant</span></div>
         </div>
       </div>
 
