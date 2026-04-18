@@ -49,6 +49,46 @@
     padding: 8px 1rem;
     position: relative;
   }
+  .ca-banner {
+    background: var(--success-bg);
+    border-bottom: 0.5px solid var(--success);
+    color: var(--success);
+    text-align: center;
+    font-size: 13px;
+    padding: 10px 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .ca-banner .ca-label { color: var(--success); font-weight: 500; }
+  .ca-banner code {
+    font-family: var(--mono);
+    font-size: 12px;
+    background: rgba(0,0,0,0.25);
+    padding: 3px 8px;
+    border-radius: 3px;
+    word-break: break-all;
+    color: var(--text);
+  }
+  .ca-banner button {
+    background: transparent;
+    border: 0.5px solid var(--success);
+    color: var(--success);
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+  .ca-banner button:hover { background: var(--success); color: var(--bg); }
+  .ca-banner a {
+    color: var(--success);
+    border-bottom-color: var(--success);
+    font-size: 12px;
+    font-family: var(--mono);
+  }
 
   .layout {
     display: grid;
@@ -572,6 +612,12 @@
 </style>
 </head>
 <body>
+
+<div class="ca-banner">
+  <span class="ca-label"><span data-lang="zh">$THALES 合约 (Solana / pump.fun):</span><span data-lang="en">$THALES contract (Solana / pump.fun):</span></span>
+  <code id="ca-code">FnXCk1LkqwLYCb2HhuqqHe6EQQo74ZXVgsoeAQ3kpump</code>
+  <button type="button" onclick="navigator.clipboard.writeText('FnXCk1LkqwLYCb2HhuqqHe6EQQo74ZXVgsoeAQ3kpump');var o=this.textContent;this.textContent='copied';setTimeout(()=>{this.textContent=o},1500);">copy</button>
+</div>
 
 <div class="banner"><span data-lang="zh">一个公开运行的实验。所有数据真实可查,但本站内容不构成任何投资建议。</span><span data-lang="en">A publicly running experiment. All data is real and verifiable, but nothing on this site is investment advice.</span></div>
 
