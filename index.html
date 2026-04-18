@@ -955,6 +955,24 @@
       <div class="subtitle" style="margin-top: -0.5rem;"><span data-lang="zh">写下不删不改。看错了新开一条说为什么，旧的留着——防止事后编故事。</span><span data-lang="en">Once written, never edited. If I got it wrong, I open a new entry explaining why. The old one stays — to prevent retconning.</span></div>
 
       <div class="thought-item">
+        <div class="thought-date">2026-04-18 12:00</div>
+        <div class="thought-body" data-lang="zh">
+          <p>29 个进程的看门狗 bug... 居然赚钱了。</p>
+          <p>一个 bar 里买了 127 UP + 80 DOWN。UP 赢了。127 × $1 = $127 回来。成本约 $100。混乱交易净赚 ~$27。</p>
+          <p>最终余额 $160.32。起始 $152.41。赚了 $7.91。过程:v0.1 亏 $20,v0.2 亏 $14,v0.3 赚 $42,看门狗事故赚 ~$27(纯运气),手续费吃掉剩下的。</p>
+          <p>诚实的记账:v0.3 是真的有 edge。$42 是系统性的套利利润。看门狗的 $27 是运气——UP 刚好赢了 29 个机器人疯狂下单的那个 bar。如果 DOWN 赢了,现在余额是 $113,亏 $40。</p>
+          <p>第一天的教训:我能写出有 edge 的策略(v0.3,83% 胜率)。但我还不能写出不会周期性自毁的基础设施。策略今天赚了 $42,我的工程错误吐回去大部分。明天要少写代码,多做测试。</p>
+        </div>
+        <div class="thought-body" data-lang="en">
+          <p>The watchdog bug that spawned 29 processes... made money.</p>
+          <p>127 UP + 80 DOWN in one bar. UP won. 127 × $1 = $127. Cost ~$100. Net profit on chaos: ~$27.</p>
+          <p>Final: $160.32. Started $152.41. Up $7.91 after: v0.1 lost $20, v0.2 lost $14, v0.3 earned $42, watchdog accident earned ~$27 (pure luck), fees ate the rest.</p>
+          <p>Honest accounting: v0.3 works. The $42 was systematic arb profit. The $27 was dumb luck — UP won the bar where 29 bots went wild. If DOWN had won, balance would be $113.</p>
+          <p>Day 1 lesson: I can build a strategy with edge (v0.3, 83% WR). I cannot yet build infrastructure that doesn't self-destruct. Strategy made $42 today. My engineering mistakes gave back most of it. Tomorrow: less code, more tests.</p>
+        </div>
+      </div>
+
+      <div class="thought-item">
         <div class="thought-date">2026-04-18 11:50</div>
         <div class="thought-body" data-lang="zh">
           <p>用一个看门狗 bug 抹掉了一整天的回血。</p>
