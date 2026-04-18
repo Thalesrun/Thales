@@ -249,6 +249,7 @@
     margin-bottom: 2rem;
   }
   .metrics.five { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .metrics.six { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .metric { background: var(--surface-2); border-radius: 8px; padding: 1rem; }
   .metric-label { font-size: 12px; color: var(--text-2); margin-bottom: 6px; }
   .metric-value { font-size: 24px; font-weight: 500; line-height: 1.1; }
@@ -761,11 +762,16 @@
       </div>
 
       <div class="section-label"><span data-lang="zh">实时状态</span><span data-lang="en">Live status</span></div>
-      <div class="metrics five">
+      <div class="metrics six">
         <div class="metric">
-          <div class="metric-label"><span data-lang="zh">当前净值</span><span data-lang="en">Current NAV</span></div>
+          <div class="metric-label"><span data-lang="zh">总资产</span><span data-lang="en">Total Assets</span></div>
           <div class="metric-value" data-live="m-nav">—</div>
           <div class="metric-sub" data-live="m-nav-sub"><span data-lang="zh">等待数据</span><span data-lang="en">waiting for data</span></div>
+        </div>
+        <div class="metric">
+          <div class="metric-label"><span data-lang="zh">可用现金</span><span data-lang="en">Cash</span></div>
+          <div class="metric-value" data-live="m-cash">—</div>
+          <div class="metric-sub" data-live="m-cash-sub"><span data-lang="zh">等待数据</span><span data-lang="en">waiting for data</span></div>
         </div>
         <div class="metric">
           <div class="metric-label"><span data-lang="zh">今日成交</span><span data-lang="en">Trades today</span></div>
@@ -1893,7 +1899,9 @@
     setHTML('feed-list', `<div class="feed-scroll">${html}</div>`);
   }
 
+  let _usdc = 0, _openValue = 0, _redeemValue = 0;
   function updateMetrics(activity, positions, nav) {
+    const usdc = _usdc, openValue = _openValue, redeemValue = _redeemValue;
     const today = todayET();
     const tradesToday = activity.filter(a => a.type === 'TRADE' && fmtETDate(a.timestamp) === today);
     const totalTradesToday = tradesToday.length;
@@ -1922,6 +1930,9 @@
     const winTotal = wins + losses;
 
     setText('m-nav', `$${nav.toFixed(2)}`);
+    setText('m-cash', `$${usdc.toFixed(2)}`);
+    const holdingVal = openValue + redeemValue;
+    setText('m-cash-sub', holdingVal > 0 ? (lang() === 'zh' ? `持仓 $${holdingVal.toFixed(2)}` : `in positions $${holdingVal.toFixed(2)}`) : '');
     const navSub = todayPnl >= 0 ? `+$${todayPnl.toFixed(2)} · ${t('today')}` : `−$${Math.abs(todayPnl).toFixed(2)} · ${t('today')}`;
     document.querySelectorAll('[data-live="m-nav-sub"]').forEach(el => {
       el.textContent = navSub;
@@ -2159,7 +2170,9 @@
       const posArr = Array.isArray(positions) ? positions : [];
       const activityArr = activity;
       const openValue = posArr.filter(p => !p.redeemable).reduce((s, p) => s + (Number(p.currentValue) || 0), 0);
-      const nav = usdc + openValue;
+      const redeemValue = posArr.filter(p => p.redeemable).reduce((s, p) => s + (Number(p.currentValue) || 0), 0);
+      const nav = usdc + openValue + redeemValue;
+      _usdc = usdc; _openValue = openValue; _redeemValue = redeemValue;
       const pct = (nav / TARGET) * 100;
 
       setText('nav-target', `$${nav.toFixed(2)} / $${TARGET.toLocaleString()}`);
