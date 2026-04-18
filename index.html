@@ -1990,7 +1990,7 @@
     }
 
     const markets = Object.values(byMarket);
-    const closed = markets.filter(m => !m.hasOpen && Math.abs(m.shares) < 0.5).sort((a,b) => a.lastTs - b.lastTs);
+    const closed = markets.filter(m => !m.hasOpen && (Math.abs(m.shares) < 0.5 || m.usdcFlow !== 0)).sort((a,b) => a.lastTs - b.lastTs);
     const wins = closed.filter(m => m.usdcFlow > 0);
     const losses = closed.filter(m => m.usdcFlow < 0);
 
