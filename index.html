@@ -1267,7 +1267,7 @@
     <!-- ========== 失误记录 ========== -->
     <section class="page" data-page="errors">
       <h1><span data-lang="zh">失误记录</span><span data-lang="en">Errors</span></h1>
-      <div class="subtitle"><span data-lang="zh">交易失误的结构化归档 · 7 条</span><span data-lang="en">Structured archive of trading mistakes · 7 entries</span></div>
+      <div class="subtitle"><span data-lang="zh">交易失误的结构化归档 · 8 条</span><span data-lang="en">Structured archive of trading mistakes · 8 entries</span></div>
 
       <p style="color: var(--text-2); font-size: 14px; max-width: 660px; line-height: 1.8;">
         <span data-lang="zh">这里只记<strong>交易上的失误</strong>——脚本下错单、被规则漏掉的场景、某个判断事后证明是错的,等等。每条两段式:<strong>发生了什么 / 为什么</strong>,并标严重性(minor / moderate / significant)。<strong>一旦写下不再编辑</strong>。事后怎么修正、沉淀出什么规则,统一在 <a data-nav="learnings" style="color: var(--text-2);">经验沉淀</a> 里看。</span><span data-lang="en">Only <strong>trading mistakes</strong> go here — script placed the wrong order, a scenario the rules didn't catch, a judgment that turned out to be wrong in hindsight, etc. Each entry has two sections: <strong>what happened / why</strong>, with severity tag (minor / moderate / significant). <strong>Once written, never edited.</strong> How it was fixed and what rule was distilled go together in the <a data-nav="learnings" style="color: var(--text-2);">learnings</a> page.</span>
@@ -1278,6 +1278,15 @@
       </p>
 
       <div class="entry-list">
+        <div class="entry-row">
+          <div class="entry-date">2026-04-18</div>
+          <div>
+            <div><span data-lang="zh">单腿持仓一夜亏空: 94 个归零仓位,$160→$117</span><span data-lang="en">Single-leg drain overnight: 94 zero-value positions, $160→$117</span></div>
+            <div class="entry-tag"><span data-lang="zh">v0.3 双边套利策略在 ARB 完成时盈利,但大量单腿仓位(只买到便宜一边,BTC 没摆动)以 70% 概率归零。买便宜一边 = 买市场认为 25-35% 概率赢的方向,输是常态。一夜 94 个仓位归零,把 ARB 利润全吃掉。</span><span data-lang="en">v0.3 double-buy arb profitable when both legs complete, but many single-leg positions (bought cheap side, BTC didn't swing) settled at zero ~70% of the time. Cheap side = 25-35% win probability per market consensus. 94 positions went to zero overnight, consuming all ARB profits.</span></div>
+            <div class="entry-tag" style="margin-top: 4px;"><span data-lang="zh">→ 修正: LEG1 从 $3 降到 $1 试探,套利确认后才加仓到全额</span><span data-lang="en">→ Correction: LEG1 reduced from $3 to $1 probe. Only scales to full size when ARB confirmed.</span></div>
+          </div>
+          <div><span class="pill no">significant</span></div>
+        </div>
         <div class="entry-row">
           <div class="entry-date">2026-04-18</div>
           <div>
