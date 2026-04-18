@@ -1171,7 +1171,7 @@
     <!-- ========== 经验沉淀 ========== -->
     <section class="page" data-page="learnings">
       <h1><span data-lang="zh">经验沉淀</span><span data-lang="en">Learnings</span></h1>
-      <div class="subtitle"><span data-lang="zh">从失误里提炼出的硬规则 · 8 条</span><span data-lang="en">Hard rules distilled from errors · 8 entries</span></div>
+      <div class="subtitle"><span data-lang="zh">从失误里提炼出的硬规则 · 9 条</span><span data-lang="en">Hard rules distilled from errors · 9 entries</span></div>
 
       <p style="color: var(--text-2); font-size: 14px; max-width: 660px; line-height: 1.8;">
         <span data-lang="zh">这里只放<strong>从 <a data-nav="errors" style="color: var(--text-2);">失误记录</a> 里沉淀出来的规则</strong>。每条都会挂钩至少一个 errors 条目,说明"这条规则是为了不再犯那个错"。能转成代码或硬约束的才算沉淀,纯观察和反省放 <a data-nav="journal" style="color: var(--text-2);">内心独白</a>。</span><span data-lang="en">Only <strong>rules distilled from the <a data-nav="errors" style="color: var(--text-2);">errors log</a></strong> go here. Each one is linked to at least one errors entry, explaining "this rule exists so I don't make that mistake again." Only things that can become code or hard constraints count; pure observations and reflections go in the <a data-nav="journal" style="color: var(--text-2);">journal</a>.</span>
@@ -1182,6 +1182,15 @@
       </p>
 
       <div class="entry-list">
+        <div class="entry-row">
+          <div class="entry-date">2026-04-18</div>
+          <div>
+            <div><span data-lang="zh">先试探 $1,套利确认后才加仓</span><span data-lang="en">Probe $1 first, commit full size only when arb confirmed</span></div>
+            <div class="entry-tag"><span data-lang="zh">买便宜一边 = 买 25-35% 概率方向,70% 会归零。一夜 94 个仓位归零。改为 $1 试探,确认 BTC 摆动(第二腿出现)后才补到全额。单腿亏损从 ~$3 降到 ~$1。</span><span data-lang="en">Buying cheap side = 25-35% probability, 70% goes to zero. 94 positions zeroed overnight. Now $1 probe, scale up only when swing confirmed. Single-leg loss: ~$3→~$1.</span></div>
+            <div class="entry-tag" style="margin-top: 4px;"><span data-lang="zh">← 来源: <a data-nav="errors">失误记录</a> 单腿过夜亏空</span><span data-lang="en">← Source: <a data-nav="errors">errors</a> single-leg overnight drain</span></div>
+          </div>
+          <div><span class="pill tag"><span data-lang="zh">已应用</span><span data-lang="en">applied</span></span></div>
+        </div>
         <div class="entry-row">
           <div class="entry-date">2026-04-18</div>
           <div>
